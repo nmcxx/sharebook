@@ -3,28 +3,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chia sẻ sách</title>
-  <link rel="stylesheet" th:href="@{css/style.css}" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
   <div id="top">
     <div id="logo">
-      <a href="#logo">Chia Sẻ Sách</a>
+      <a href="/">Chia Sẻ Sách</a>
     </div>
     <div id="navbar">
       <ul>
-  <li><a class="active" href="#home">Trang chủ</a></li>
-  <li class="dropdown"><a href="#news" class="dropbtn">Danh Mục</a>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Lik 2</a>
-      <a href="#">Lid</a>
-    </div>
+  <li><a style="color: #3399ff" class="active" href="/">Trang chủ</a></li>
+  <li><a style="color: #3399ff" href="#about">Thông Tin</a></li>
+  
+  <li th:if="${session.userlogin == null}" style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
   </li>
-  <li><a href="#about">Thông Tin</a></li>
-  <li style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
+  
+  <li th:unless="${session.userlogin == null}" style="float:right" class="dropdown"><a th:text="${session.userlogin}" style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
     <div class="dropdown-content">
-      <a href="#">Dashboard</a>
-      <a href="#">Đăng xuất</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Đăng xuất</a>
     </div>
   </li>
 </ul>
@@ -33,12 +30,12 @@
   <hr>
   <div id="main">
     <div id="search-container">
-      <form action="">
-        <select id="list-search">
+      <form th:action="@{/search}" th:object="${searchForm}" method="post">
+        <select id="list-search" name="list-search">
           <option th:each="theloai : ${listTheLoai}" th:value="${theloai.idTheLoai}" th:text="${theloai.tenTheLoai}"></option>
         </select>
-      <input type="text" placeholder="Tên sách" name="search">
-      <button type="submit">Tìm kiếm</button>
+      <input type="text" placeholder="Tên sách" name="search" id="search">
+      <input type="submit" value="Tìm kiếm" name="btnSearch" id="btnSearch">
       </form>
     </div>
     <div id="helloworld">

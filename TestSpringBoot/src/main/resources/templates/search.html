@@ -13,11 +13,14 @@
     <div id="navbar">
       <ul>
   <li><a style="color: #3399ff" class="active" href="/">Trang chủ</a></li>
-  <li><a href="#about">Thông Tin</a></li>
-  <li style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
+  <li><a style="color: #3399ff" href="#about">Thông Tin</a></li>
+  <li th:if="${session.userlogin == null}" style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
+  </li>
+  
+  <li th:unless="${session.userlogin == null}" style="float:right" class="dropdown"><a th:text="${session.userlogin}" style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
     <div class="dropdown-content">
-      <a href="#">Dashboard</a>
-      <a href="#">Đăng xuất</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Đăng xuất</a>
     </div>
   </li>
 </ul>
@@ -45,7 +48,9 @@
           </li>
         </ul>
       </div>
-      <div id="paging" th:if="${totalPages>1}">
+
+    </div>
+          <div id="paging" th:if="${totalPages>1}">
       	<div id="row">
       		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
       			<a th:if="${currentPage != i}" th:href="@{'/search?page='+${i}+'&theloai='+${theLoai}+'&tensach='+${tenSach}}">[[${i}]]</a>
@@ -53,7 +58,7 @@
       		</span>
       	</div>
       </div>
-    </div>
+      
   </div>
 <hr>
   <div id="footer">Copyright © 2021</div>

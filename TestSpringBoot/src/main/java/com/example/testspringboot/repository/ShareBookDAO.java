@@ -44,8 +44,26 @@ public class ShareBookDAO {
 	
 	public int addSachh(Sach sach)
 	{
-		String sql = "insert into dssach(idtheloai, img, tensach, tentacgia, tenfile) values(?,?,?,?,?)";
+		String sql = "insert into dssach(idtheloai, img, tensach, tentacgia, fileebook) values(?,?,?,?,?)";
 		return jdbcTemplate.update(sql,sach.getIdTheLoai(),sach.getImg(),sach.getTenSach(),sach.getTenTacGia(),sach.getFileEbook());	
+	}
+	
+	public int addTheLoai(String tenTheLoai)
+	{
+		String sql = "insert into theloai(tentheloai) values(?)";
+		return jdbcTemplate.update(sql,tenTheLoai);	
+	}
+	
+	public int suaTheLoai(TheLoai theLoai)
+	{
+		String sql= "update theloai set tentheloai=? where idtheloai=?";
+		return jdbcTemplate.update(sql, theLoai.getTenTheLoai(), theLoai.getIdTheLoai());
+	}
+	
+	public int xoaTheLoai(int idTheLoai)
+	{
+		String sql="delete from theloai where idtheloai=?";
+		return jdbcTemplate.update(sql, idTheLoai);
 	}
 	
 	public List<Sach> getAllSach(){
@@ -73,11 +91,7 @@ public class ShareBookDAO {
 			return theLoai;
 		}
 	}
-	
-	public List<TheLoai> searchTheLoai(int idTheLoai, int pageNo)
-	{
-		
-	}
+
 	
 	public Sach getSach(int idSach){
 		try {
@@ -122,7 +136,39 @@ public class ShareBookDAO {
 		return soLuong;
 	}
 	
-	// tim kiem
+	// tim kiem the loai
+	public int getSoLuongTheLoai(String tenTheLoai)
+	{
+		String sql;
+		if(tenTheLoai==null || tenTheLoai.equals("null"))
+		{
+			sql = "select count(*) from theloai where tentheloai like '%%'";
+		}
+		else
+		{
+			sql = "select count(*) from theloai where tentheloai like '%"+tenTheLoai+"%'";
+		}
+		int soLuong= jdbcTemplate.queryForObject(sql, Integer.class);
+		return soLuong;
+	}
+	
+	public List<TheLoai> searchTheLoai(String tenTheLoai, int viTri)
+	{
+		String sql;
+		if(tenTheLoai==null || tenTheLoai.equals("null"))
+		{
+			sql = "select * from theloai where tentheloai like '%%' limit "+viTri+",8";
+		}
+		else
+		{
+			sql = "select * from theloai where tentheloai like '%"+tenTheLoai+"%' limit "+viTri+",8";
+		}
+		List<TheLoai> theLoai = new ArrayList<TheLoai>();
+		theLoai = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(TheLoai.class));
+		return theLoai;
+	}
+	
+	// tim kiem sach
 	public int getSoLuongSach(String idTheLoai, String tenSach)
 	{
 		String sql;
@@ -142,11 +188,11 @@ public class ShareBookDAO {
 		String sql;
 		if(idTheLoai==null && tenSach == null || idTheLoai.equals("null") && tenSach.equals("null"))
 		{
-			sql = "select * from dssach where idtheloai like '%%' and tensach like '%%' limit "+viTri+",3";
+			sql = "select * from dssach where idtheloai like '%%' and tensach like '%%' limit "+viTri+",8";
 		}
 		else
 		{
-			sql = "select * from dssach where idtheloai like '%"+idTheLoai+"%' and tensach like '%"+tenSach+"%' limit "+viTri+",3";
+			sql = "select * from dssach where idtheloai like '%"+idTheLoai+"%' and tensach like '%"+tenSach+"%' limit "+viTri+",8";
 		}
 		List<Sach> sach = new ArrayList<Sach>();
 		sach = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Sach.class));

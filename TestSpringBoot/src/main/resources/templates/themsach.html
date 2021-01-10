@@ -12,10 +12,13 @@
     </div>
     <div id="navbar">
       <ul>
-  <li style="float:right" class="dropdown"><a href="#news" class="dropbtn">Đăng Nhập</a>
+  <li th:if="${session.userlogin == null}" style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
+  </li>
+  
+  <li th:unless="${session.userlogin == null}" style="float:right" class="dropdown"><a th:text="${session.userlogin}" style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
     <div class="dropdown-content">
-      <a href="#">Dashboard</a>
-      <a href="#">Đăng xuất</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Đăng xuất</a>
     </div>
   </li>
 </ul>
@@ -26,7 +29,7 @@
   <ul>
   <li><a href="/dashboard">Dashboard</a></li>
     <li><a class="active" href="/dashboard/quanlysach">Quản lý sách</a>
-  <li><a href="/dashboard/quanlytheloai">Quản lý danh mục</a></li>
+  <li><a href="/dashboard/quanlytheloai">Quản lý thể loại</a></li>
 </ul>
     </div>
 

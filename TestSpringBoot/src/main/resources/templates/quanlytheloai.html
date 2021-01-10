@@ -8,14 +8,17 @@
 <body>
   <div id="top">
     <div id="logo">
-      <a href="#logo">Chia Sẻ Sách</a>
+      <a href="/">Chia Sẻ Sách</a>
     </div>
     <div id="navbar">
       <ul>
-  <li style="float:right" class="dropdown"><a href="#news" class="dropbtn">Đăng Nhập</a>
+  <li th:if="${session.userlogin == null}" style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
+  </li>
+  
+  <li th:unless="${session.userlogin == null}" style="float:right" class="dropdown"><a th:text="${session.userlogin}" style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
     <div class="dropdown-content">
-      <a href="#">Dashboard</a>
-      <a href="#">Đăng xuất</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Đăng xuất</a>
     </div>
   </li>
 </ul>
@@ -24,19 +27,20 @@
   <hr>
   <div class="menu-left">
   <ul>
-  <li><a href="#home">Dashboard</a></li>
-    <li><a href="#news">Quản lý sách</a>
-  <li><a class="active" href="#news">Quản lý danh mục</a></li>
+  <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/dashboard/quanlysach">Quản lý sách</a>
+  <li><a class="active" href="/dashboard/quanlytheloai">Quản lý thể loại</a></li>
 </ul>
     </div>
 
 <div style="margin-left:25%;padding:1px 16px;height:auto;">
   <div class="row-add">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Tên thể loại" name="search">
+    <form th:action="@{/dashboard/quanlytheloai}" th:object="${adminSearchCategoryForm}" method="post">
+      <input type="text" placeholder="Tên thể loại" name="theloai" id="theloai">
       <button type="submit">Tìm kiếm</button>
       </form>
   </div>
+  <p th:text="${message}"></p>
   <div class="row-table">
     <table width="100%">
   <thead>
@@ -46,24 +50,28 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>January</td>
-      <td>$100</td>
-      <td><input type="button" value="Update" style="width: 100%"></td>
-      <td><input type="button" value="Delete" style="width: 100%"></td>
-    </tr>
-    <tr>
-      <td>February</td>
-      <td>$80</td>
+    <tr th:each="theloai : ${listTheLoai}">
+      <td th:text="${theloai.idTheLoai}">January</td>
+      <td th:text="${theloai.tenTheLoai}">$100</td>
+      <td><a th:href="@{'/dashboard/quanlytheloai/edit?id='+${theloai.idTheLoai}}">Edit</a></td>
+      <td><a th:href="@{'/dashboard/quanlytheloai/delete?id='+${theloai.idTheLoai}}">Delete</a></td>
     </tr>
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="8"><input type="button" value="Thêm thể loại" style="width: 100%"></td>
+    
+      <td style="text-align: center;" colspan="4"><a th:href="@{/dashboard/quanlytheloai/add}">Add</a></td>
     </tr>
   </tfoot>
 </table>
-    <p>1 2 3</p>
+<div id="paging" th:if="${totalPages>1}">
+      	<div id="row">
+      		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      			<a th:if="${currentPage != i}" th:href="@{'/dashboard/quanlytheloai?page='+${i}+'&theloai='+${theLoai}}">[[${i}]]</a>
+      			<span th:unless="${currentPage !=i}">[[${i}]]</span> &nbsp; &nbsp;
+      		</span>
+      	</div>
+      </div>
   </div>
 </div>
 </body>

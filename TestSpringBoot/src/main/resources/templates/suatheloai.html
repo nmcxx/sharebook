@@ -12,10 +12,13 @@
     </div>
     <div id="navbar">
       <ul>
-  <li style="float:right" class="dropdown"><a href="#news" class="dropbtn">Đăng Nhập</a>
+  <li th:if="${session.userlogin == null}" style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
+  </li>
+  
+  <li th:unless="${session.userlogin == null}" style="float:right" class="dropdown"><a th:text="${session.userlogin}" style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
     <div class="dropdown-content">
-      <a href="#">Dashboard</a>
-      <a href="#">Đăng xuất</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Đăng xuất</a>
     </div>
   </li>
 </ul>
@@ -24,27 +27,27 @@
   <hr>
   <div class="menu-left">
   <ul>
-  <li><a href="#home">Dashboard</a></li>
-    <li><a href="#news">Quản lý sách</a>
-  <li><a class="active" href="#news">Quản lý danh mục</a></li>
+  <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/dashboard/quanlysach">Quản lý sách</a>
+  <li><a class="active"  href="/dashboard/quanlytheloai">Quản lý thể loại</a></li>
 </ul>
     </div>
 
 <div style="margin-left:25%;padding:1px 16px;height:auto;">
   <div class="row-crud">
-    <form action="/action_page.php">
+    <form action="/dashboard/quanlytheloai/edit" th:object="${suaTheLoaiForm}" method="post">
       <p>ID:
-        <input style="margin-left:59px;" type="text" class="id" id="id" disabled>
+        <input th:value="${theloai.idTheLoai}" style="margin-left:59px;" type="text" class="id" name="idTheLoai" id="id" readonly="true">
       </p>
       <p>Tên thể loại: 
-        <input style="margin-left:6px;" type="text" class="tenSach" id="tenSach" required>
+        <input th:value="${theloai.tenTheLoai}" style="margin-left:6px;" type="text" class="tenTheLoai" name="tenTheLoai" id="tenTheLoai" required>
       </p>
       <p>
         <input style="margin-left: 80px" type="submit" class="btnThem" id="btnThem" value="Sửa">
       </p>
-      <p style="color: green; text-align: center">
+    <!--  <p th:text="${message}" style="color: green; text-align: center">
         Chỉnh sửa thành công
-      </p>
+      </p>  --> 
       </form>
   </div>
  
