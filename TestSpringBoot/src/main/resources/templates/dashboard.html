@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chia sẻ sách</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="top">
+    <div id="logo">
+      <a href="#logo">Chia Sẻ Sách</a>
+    </div>
+    <div id="navbar">
+      <ul>
+  <li style="float:right" class="dropdown"><a href="#news" class="dropbtn">Đăng Nhập</a>
+    <div class="dropdown-content">
+      <a href="#">Dashboard</a>
+      <a href="#">Đăng xuất</a>
+    </div>
+  </li>
+</ul>
+    </div>
+  </div>
+  <hr>
+  <div class="menu-left">
+  <ul>
+  <li><a class="active" href="/dashboard">Dashboard</a></li>
+    <li><a href="/dashboard/quanlysach">Quản lý sách</a>
+  <li><a href="/dashboard/quanlytheloai">Quản lý danh mục</a></li>
+</ul>
+    </div>
+
+<div style="margin-left:25%;padding:1px 16px;height:auto;">
+  <div class="row-book">
+    <img style="float:left" src="https://p.kindpng.com/picc/s/19-194629_clip-art-stack-of-books-school-books-icon.png" alt="" width="100px" height="80px" >
+  <h3 th:text="${slsach}">0000</h3>
+    <p> <h2>Số lượng sách</h2></p>
+  </div>
+  <div class="row-danhmuc">
+    <img style="float:left" src="https://icon-library.com/images/category-icon/category-icon-18.jpg" alt="" width="100px" height="80px" >
+  <h3 th:Text="${sltheloai}">0000</h3>
+   <p> <h2>Số lượng thể loại</h2></p>
+  </div>
+<!--   <h2>Fixed Full-height Side Nav</h2>
+  <h3>Try to scroll this area, and see how the sidenav sticaks to the page</h3>
+  <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+  <p>Also notice that we hhave set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p> -->
+</div>
+</body>
+</html>

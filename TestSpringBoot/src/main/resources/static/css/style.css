@@ -1,0 +1,282 @@
+@charset "UTF-8";
+body{
+  font-family: Tahoma;
+  font-size: 13px;
+  width: 800px;
+  margin: 0px auto;
+}
+#top{
+  height: 50px;
+}
+#top #logo{
+  background: white;
+  width: 200px;
+  height: 50px;
+  float: left;
+}
+#top #logo a{
+  font-size : 20px;
+  margin: auto;
+  text-align: center;
+}
+#top #logo a:link, a:visited {
+  color: gray;
+  padding: 12px 42px;
+  text-decoration: none;
+  display: inline-block;
+}
+#top #logo a:hover, a:active {
+  color: #3399ff;
+}
+#top #navbar{
+  background: white;
+  float: left;
+  height: 50px;
+  width: 600px;
+}
+/* ul list  */
+#top #navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+}
+
+#top #navbar li {
+  float: left;
+}
+
+#top #navbar li a {
+  display: block;
+  color: blue;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  height: 22px;
+}
+#top #navbar li a:link{
+  color: #3399ff;
+}
+/* dropdown list  */
+#top #navbar li a:hover {
+  background-color: #3399ff;
+}
+#top #navbar li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#top #navbar li a:hover, .dropdown:hover .dropbtn {
+  background-color: #f9f9f9;
+}
+
+#top #navbar li.dropdown {
+  display: inline-block;
+}
+
+#top #navbar .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+#top #navbar .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  height: 10px;
+  font-size: 12px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+#top #navbar .dropdown-content a:hover {background-color: #f1f1f1;}
+
+#top #navbar .dropdown:hover .dropdown-content {
+  display: block;
+}
+/* end navbar  */
+#main{
+  background: white;
+/*   height: 500px; */
+}
+
+#main #helloworld{
+  min-height: 100px;
+  background: #E4E6E4;
+  text-align:center;
+  padding: 30px;
+}
+
+/* tìm kiếm  */
+#main #search-container{
+  padding: 5px 10px 10px 10px;
+  background: #EFF2EF;
+  border:8px solid white;
+}
+
+form{
+  margin: auto;
+}
+
+#main #result-search{
+  min-height: 500px;
+  background: #E4E6E4;
+  overflow: auto;
+}
+
+#main #result-search #search-heading{
+  min-width: 800px;
+  float: left;
+  font-size: 16px;
+  min-height: 30px;
+  background: #3673C8;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#main #result-search #list-item{
+  margin-top: 50px;
+  background: black;
+  text-align: center;
+}
+
+#main #result-search #list-item ul li a{
+  width: 130px;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  color: black;
+  text-decoration: none;
+}
+
+#main #result-search #list-item ul li{
+  list-style: none;
+  width: 130px;
+  height: 150px;
+  margin-right: 60px;
+  margin-bottom: 30px;
+  float: left;
+}
+
+#main #result-search #list-item ul li img{
+  width: 100px;
+  height: 120px;
+}
+
+#main #info-ebook{
+  height: 280px;
+  border: 1px solid grey;
+}
+
+#main #info-ebook img{
+  width: 200px;
+  height: 250px;
+  float: left;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+#main #info-ebook h3{
+/*   float: left; */
+  font-size: 14px;
+}
+
+/* Style buttons */
+.btn-download {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.btn-download:hover {
+  background-color: RoyalBlue;
+}
+
+/* dashboard */
+.menu-left ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 210px;
+  background-color: #f1f1f1;
+  position: absolute;
+  height: 100%;
+  overflow: auto;
+}
+
+.menu-left li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.menu-left li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.menu-left li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+/*  */
+/* so luong dashboard  */
+.row-book{
+  background: #f1f1f1;
+  width: 270px;
+  height: 80px;
+  border: 1px solid white;
+  float:left;
+}
+.row-book h3{
+  text-align: right;
+}
+.row-book h2{
+  font-size: 18px;
+  text-align: right;
+}
+.row-danhmuc{
+  background: #f1f1f1;
+  margin-left: 20px;
+  width: 270px;
+  height: 80px;
+  border: 1px solid white;
+  float:left;
+}
+.row-danhmuc h3{
+  text-align: right;
+}
+.row-danhmuc h2{
+  font-size: 18px;
+  text-align: right;
+}
+
+/*  */
+/* table  */
+table, th, td {
+  border: 1px solid black;
+}
+/*  */
+.row-crud{
+  margin-left: 150px;
+}
+#footer{
+  background: white;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}

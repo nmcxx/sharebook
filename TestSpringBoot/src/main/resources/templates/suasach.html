@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chia sẻ sách</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <div id="top">
+    <div id="logo">
+      <a href="#logo">Chia Sẻ Sách</a>
+    </div>
+    <div id="navbar">
+      <ul>
+  <li style="float:right" class="dropdown"><a href="#news" class="dropbtn">Đăng Nhập</a>
+    <div class="dropdown-content">
+      <a href="#">Dashboard</a>
+      <a href="#">Đăng xuất</a>
+    </div>
+  </li>
+</ul>
+    </div>
+  </div>
+  <hr>
+  <div class="menu-left">
+  <ul>
+  <li><a href="#home">Dashboard</a></li>
+    <li><a class="active" href="#news">Quản lý sách</a>
+  <li><a href="#news">Quản lý danh mục</a></li>
+</ul>
+    </div>
+
+<div style="margin-left:25%;padding:1px 16px;height:auto;">
+  <div class="row-crud">
+    <form th:action="@{/dashboard/quanlysach/edit}" th:object="${editSachForm}" method="post" enctype="multipart/form-data">
+      <p>ID:
+        <input th:value="${listSach.idSach}" style="margin-left:43px;" type="text" class="id" id="idSach" name="idSach" readonly="true">
+      </p>
+      <p>Thể loại: 
+      <select id="list-search" name="list-search">
+          <option th:each="theloai : ${listTheLoai}" th:value="${theloai.idTheLoai}" th:text="${theloai.tenTheLoai}" th:selected="${listSach.idTheLoai == theloai.idTheLoai}"></option>
+        </select>
+      </p>
+      <p>Tên sách: 
+        <input th:value="${listSach.tenSach}"  style="margin-left:6px;" type="text" class="tenSach" id="tenSach" name="tenSach" required>
+      </p>
+      <p>Ảnh bìa:
+        <input th:value="${listSach.img}"  style="margin-left:15px;" type="text" class="anhBia" id="img" name="img" readonly="true">
+        <p>
+        <input type="file" class="fileImg" id="files" name="files"  accept="image/png , image/jpeg">
+          </p>
+      </p>
+      <p>Tác giả:
+        <input th:value="${listSach.tenTacGia}"  style="margin-left:16px;" type="text" class="tenTacGia" id="tenTacGia" name="tenTacGia" required>
+      </p>
+      <p>File Ebook:
+        <input th:value="${listSach.fileEbook}"  type="text" class="fileEbook" id="fileEbook" name="fileEbook" readonly="true">
+        <p>
+        <input type="file" name="files" id="files" accept=".pdf">
+         </p>
+      </p>
+      <p>
+        <input style="margin-left: 80px" type="submit" class="btnSua" id="btnSua" value="Sửa">
+      </p>
+      <p th:text="${message}" style="color: green; text-align: center">
+        
+      </p>
+      </form>
+  </div>
+ 
+<!--   <h2>Fixed Full-height Side Nav</h2>
+  <h3>Try to scroll this area, and see how the sidenav sticaks to the page</h3>
+  <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+  <p>Also notice that we hhave set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p> -->
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chia sẻ sách</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <div id="top">
+    <div id="logo">
+      <a href="#logo">Chia Sẻ Sách</a>
+    </div>
+    <div id="navbar">
+      <ul>
+  <li style="float:right" class="dropdown"><a href="#news" class="dropbtn">Đăng Nhập</a>
+    <div class="dropdown-content">
+      <a href="#">Dashboard</a>
+      <a href="#">Đăng xuất</a>
+    </div>
+  </li>
+</ul>
+    </div>
+  </div>
+  <hr>
+  <div class="menu-left">
+  <ul>
+  <li><a href="#home">Dashboard</a></li>
+    <li><a class="active" href="#news">Quản lý sách</a>
+  <li><a href="#news">Quản lý danh mục</a></li>
+</ul>
+    </div>
+
+<div style="margin-left:25%;padding:1px 16px;height:auto;">
+  <div class="row-add">
+    <form th:action="@{/dashboard/quanlysach}" th:object="${adminSearchBookForm}" method="post">
+        <select id="list-search" name="list-search">
+          <option th:each="theloai : ${listTheLoai}" th:value="${theloai.idTheLoai}" th:text="${theloai.tenTheLoai}"></option>
+        </select>
+      <input type="text" placeholder="Tên sách" name="search" id="search">
+      <input type="submit" value="Tìm kiếm" name="btnSearch" id="btnSearch">
+      </form>
+  </div>
+  <p th:text="${message}" style="color: green; text-align: center"></p>
+  <div class="row-table">
+    <table width="100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Thể loại</th>
+      <th>Ảnh</th>
+      <th>Tên sách</th>
+      <th>Tác giả</th>
+      <th>File</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="sach : ${listSach}">
+      <td th:text="${sach.idSach}"></td>
+      <td th:text="${sach.idTheLoai}"></td>
+      <td><img th:src="@{${sach.ImagePath}}" alt="sach" title="sach" style="width: 50px;heigh: 50px"/></td>
+      <td th:text="${sach.tenSach}">January</td>
+      <td th:text="${sach.tenTacGia}">$100</td>
+      <td th:text="@{${sach.CheckEbook}}">January</td>
+      <td><a th:href="@{'/dashboard/quanlysach/edit?id='+${sach.idSach}}">Edit</a></td>
+      <td><a th:href="@{'/dashboard/quanlysach/delete?id='+${sach.idSach}}">Delete</a></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="8"><input type="button" value="Thêm sách" style="width: 100%"></td>
+    </tr>
+  </tfoot>
+</table>
+ <div id="paging" th:if="${totalPages>1}">
+      	<div id="row">
+      		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      			<a th:if="${currentPage != i}" th:href="@{'/dashboard/quanlysach?page='+${i}+'&theloai='+${theLoai}+'&tensach='+${tenSach}}">[[${i}]]</a>
+      			<span th:unless="${currentPage !=i}">[[${i}]]</span> &nbsp; &nbsp;
+      		</span>
+      	</div>
+      </div>
+  </div>
+<!--   <h2>Fixed Full-height Side Nav</h2>
+  <h3>Try to scroll this area, and see how the sidenav sticaks to the page</h3>
+  <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
+  <p>Also notice that we hhave set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p>
+  <p>Some text..</p> -->
+</div>
+</body>
+</html>

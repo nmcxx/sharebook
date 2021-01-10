@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chia sẻ sách</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <div id="top">
+    <div id="logo">
+      <a href="#logo">Chia Sẻ Sách</a>
+    </div>
+    <div id="navbar">
+      <ul>
+  <li style="float:right" class="dropdown"><a href="#news" class="dropbtn">Đăng Nhập</a>
+    <div class="dropdown-content">
+      <a href="#">Dashboard</a>
+      <a href="#">Đăng xuất</a>
+    </div>
+  </li>
+</ul>
+    </div>
+  </div>
+  <hr>
+  <div class="menu-left">
+  <ul>
+  <li><a href="#home">Dashboard</a></li>
+    <li><a href="#news">Quản lý sách</a>
+  <li><a class="active" href="#news">Quản lý danh mục</a></li>
+</ul>
+    </div>
+
+<div style="margin-left:25%;padding:1px 16px;height:auto;">
+  <div class="row-add">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Tên thể loại" name="search">
+      <button type="submit">Tìm kiếm</button>
+      </form>
+  </div>
+  <div class="row-table">
+    <table width="100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên Thể loại</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>January</td>
+      <td>$100</td>
+      <td><input type="button" value="Update" style="width: 100%"></td>
+      <td><input type="button" value="Delete" style="width: 100%"></td>
+    </tr>
+    <tr>
+      <td>February</td>
+      <td>$80</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="8"><input type="button" value="Thêm thể loại" style="width: 100%"></td>
+    </tr>
+  </tfoot>
+</table>
+    <p>1 2 3</p>
+  </div>
+</div>
+</body>
+</html>

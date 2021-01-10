@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chia sẻ sách</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <div id="top">
+    <div id="logo">
+      <a href="#logo">Chia Sẻ Sách</a>
+    </div>
+    <div id="navbar">
+      <ul>
+  <li><a class="active" href="#home">Trang chủ</a></li>
+  <li class="dropdown"><a href="#news" class="dropbtn">Danh Mục</a>
+    <div class="dropdown-content">
+      <a href="#">Link 1</a>
+      <a href="#">Lik 2</a>
+      <a href="#">Lid</a>
+    </div>
+  </li>
+  <li><a href="#about">Thông Tin</a></li>
+</ul>
+    </div>
+  </div>
+  <hr>
+  <div id="main">
+    <div id="search-container">
+      <form th:action="@{/search}" th:object="${searchForm}" method="post">
+        <select id="list-search" name="list-search">
+          <option th:each="theloai : ${listTheLoai}" th:value="${theloai.idTheLoai}" th:text="${theloai.tenTheLoai}"></option>
+        </select>
+      <input type="text" placeholder="Tên sách" name="search" id="search">
+      <input type="submit" value="Tìm kiếm" name="btnSearch" id="btnSearch">
+      </form>
+    </div>
+    <form th:action="@{'/file/'+${sach.fileEbook}}" th:object="${thongTinForm}" method="get">
+    <div id="info-ebook">
+      <img th:src="${sach.ImagePath}" alt=""/>
+      <h3 id="tieude" th:text="${sach.tenSach}">Tiêu đề</h3>
+      <p th:text="'Tên tác giả: ' +${sach.tenTacGia}">Tác giả: </p>
+      <p th:text="'Thể loại: ' +${theloai.tenTheLoai}">Thể loại:  </p>
+      <button class="btn-download" ><i class="fa fa-download"></i> Download</button>
+    </div>
+    </form>
+  </div>
+<hr>
+  <div id="footer">Copyright © 2021</div>
+</body>
+</html>

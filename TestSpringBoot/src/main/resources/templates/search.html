@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chia sẻ sách</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+  <div id="top">
+    <div id="logo">
+      <a href="/">Chia Sẻ Sách</a>
+    </div>
+    <div id="navbar">
+      <ul>
+  <li><a style="color: #3399ff" class="active" href="/">Trang chủ</a></li>
+  <li><a href="#about">Thông Tin</a></li>
+  <li style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
+    <div class="dropdown-content">
+      <a href="#">Dashboard</a>
+      <a href="#">Đăng xuất</a>
+    </div>
+  </li>
+</ul>
+    </div>
+  </div>
+  <hr>
+  <div id="main">
+    <div id="search-container">
+      <form th:action="@{/search}" th:object="${searchForm}" method="post">
+        <select id="list-search" name="list-search">
+          <option th:each="theloai : ${listTheLoai}" th:value="${theloai.idTheLoai}" th:text="${theloai.tenTheLoai}"></option>
+        </select>
+      <input type="text" placeholder="Tên sách" name="search" id="search">
+      <input type="submit" value="Tìm kiếm" name="btnSearch" id="btnSearch">
+      </form>
+    </div>
+    <div id="result-search">
+      <div id="search-heading">Danh Sách
+      </div>
+      <div id="list-item">
+        <ul>
+          <li th:each="sach : ${listSach}">
+            <a th:href="@{'/thongtin?id='+${sach.idSach}}" title=""><img th:src="@{${sach.ImagePath}}" alt="sach" th:title="${sach.tenSach}"/></a>
+            <a th:href="@{'/thongtin?id='+${sach.idSach}}" title="" th:text="${sach.tenSach}" id="tenSach" name="tenSach"></a>
+          </li>
+        </ul>
+      </div>
+      <div id="paging" th:if="${totalPages>1}">
+      	<div id="row">
+      		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      			<a th:if="${currentPage != i}" th:href="@{'/search?page='+${i}+'&theloai='+${theLoai}+'&tensach='+${tenSach}}">[[${i}]]</a>
+      			<span th:unless="${currentPage !=i}">[[${i}]]</span> &nbsp; &nbsp;
+      		</span>
+      	</div>
+      </div>
+    </div>
+  </div>
+<hr>
+  <div id="footer">Copyright © 2021</div>
+</body>
+</html>
