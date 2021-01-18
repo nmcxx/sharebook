@@ -201,7 +201,7 @@ public class UserController {
 		
 		
 		List<Sach> sach = new ArrayList<Sach>();
-		sach = userRepository.searchSach(strTheLoai, tenSach, viTri);
+		sach = userRepository.searchSach(strTheLoai, tenSach, viTri, pageSize);
 		
 		List<TheLoai> theLoais = userRepository.getAllTheLoai();
 		model.addAttribute("listTheLoai", theLoais);

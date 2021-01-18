@@ -152,16 +152,16 @@ public class ShareBookDAO {
 		return soLuong;
 	}
 	
-	public List<TheLoai> searchTheLoai(String tenTheLoai, int viTri)
+	public List<TheLoai> searchTheLoai(String tenTheLoai, int viTri, int pageSize)
 	{
 		String sql;
 		if(tenTheLoai==null || tenTheLoai.equals("null"))
 		{
-			sql = "select * from theloai where tentheloai like '%%' limit "+viTri+",8";
+			sql = "select * from theloai where tentheloai like '%%' limit "+viTri+","+pageSize;
 		}
 		else
 		{
-			sql = "select * from theloai where tentheloai like '%"+tenTheLoai+"%' limit "+viTri+",8";
+			sql = "select * from theloai where tentheloai like '%"+tenTheLoai+"%' limit "+viTri+","+pageSize;
 		}
 		List<TheLoai> theLoai = new ArrayList<TheLoai>();
 		theLoai = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(TheLoai.class));
@@ -184,15 +184,15 @@ public class ShareBookDAO {
 		return soLuong;
 	}
 	
-	public List<Sach> searchSach(String idTheLoai, String tenSach, int viTri){
+	public List<Sach> searchSach(String idTheLoai, String tenSach, int viTri, int pageSize){
 		String sql;
 		if(idTheLoai==null && tenSach == null || idTheLoai.equals("null") && tenSach.equals("null"))
 		{
-			sql = "select * from dssach where idtheloai like '%%' and tensach like '%%' limit "+viTri+",8";
+			sql = "select * from dssach where idtheloai like '%%' and tensach like '%%' limit "+viTri+","+pageSize;
 		}
 		else
 		{
-			sql = "select * from dssach where idtheloai like '%"+idTheLoai+"%' and tensach like '%"+tenSach+"%' limit "+viTri+",8";
+			sql = "select * from dssach where idtheloai like '%"+idTheLoai+"%' and tensach like '%"+tenSach+"%' limit "+viTri+","+pageSize;
 		}
 		List<Sach> sach = new ArrayList<Sach>();
 		sach = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Sach.class));

@@ -65,14 +65,14 @@ public class AdminController {
 		//int theLoai = Integer.valueOf(strTheLoai, 1);
 		System.out.println(pageNo+", "+strTheLoai+", "+tenSach);
 		
-		int pageSize = 8;
+		int pageSize = 5;
 //		double a = (double) page
 		int totalPage = (int)(Math.ceil(userRepository.getSoLuongSach(strTheLoai, tenSach)/(double)pageSize));
 		int viTri = pageNo*pageSize-pageSize;
 		
 		System.out.println("tong so trang"+totalPage+", "+Math.ceil(10.0/3));
 		List<Sach> sach = new ArrayList<Sach>();
-		sach = userRepository.searchSach(strTheLoai, tenSach, viTri);
+		sach = userRepository.searchSach(strTheLoai, tenSach, viTri, pageSize);
 		
 		List<TheLoai> theLoais = userRepository.getAllTheLoai();
 		model.addAttribute("listTheLoai", theLoais);
@@ -290,7 +290,7 @@ public class AdminController {
 		//int theLoai = Integer.valueOf(strTheLoai, 1);
 		System.out.println(pageNo+", "+strTheLoai);
 		
-		int pageSize = 8;
+		int pageSize = 5;
 //		double a = (double) page
 		int totalPage = (int)(Math.ceil(userRepository.getSoLuongTheLoai(strTheLoai)/(double)pageSize));
 //				userRepository.getSoLuongSach(strTheLoai, tenSach)/(double)pageSize));
@@ -298,7 +298,7 @@ public class AdminController {
 		
 		System.out.println("tong so trang"+totalPage+", "+Math.ceil(10.0/3));
 		List<TheLoai> theLoai = new ArrayList<TheLoai>();
-		theLoai = userRepository.searchTheLoai(strTheLoai, viTri);
+		theLoai = userRepository.searchTheLoai(strTheLoai, viTri, pageSize);
 		
 		model.addAttribute("totalPages", totalPage);
 		model.addAttribute("currentPage", pageNo);
