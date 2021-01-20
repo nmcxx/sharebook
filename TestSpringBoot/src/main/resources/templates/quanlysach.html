@@ -35,8 +35,9 @@
 
 <div style="margin-left:25%;padding:1px 16px;height:auto;">
   <div class="row-add">
-    <form th:action="@{/dashboard/quanlysach}" th:object="${adminSearchBookForm}" method="post">
+    <form th:action="@{/dashboard/quanlysach}" method="post">
         <select id="list-search" name="list-search">
+          <option value="0">Tất cả</option>
           <option th:each="theloai : ${listTheLoai}" th:value="${theloai.idTheLoai}" th:text="${theloai.tenTheLoai}"></option>
         </select>
       <input type="text" placeholder="Tên sách" name="search" id="search">

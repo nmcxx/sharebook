@@ -94,19 +94,16 @@ public class ShareBookDAO {
 
 	
 	public Sach getSach(int idSach){
+		Sach sachs = new Sach();
 		try {
-//			System.out.println("hi");
-			Sach sachs = new Sach();
 			String sql = "select * from dssach where idsach=?";
 //			return jdbcTemplate.query(sql, new BeanPropertyRowMapper(Sach.class),idSach);
 //			Map<String, Sach> sachs = (Sach)jdbcTemplate.queryForMap(sql, idSach);
 			sachs = (Sach) jdbcTemplate.queryForObject(sql, new Object[] {idSach} ,new BeanPropertyRowMapper(Sach.class));
-//			System.out.println("hi");
 			return sachs;
 		}catch(EmptyResultDataAccessException e)
 		{
-			Sach sachs = new Sach();
-			return sachs;
+			return sachs =  null;
 		}
 	}
 	
@@ -142,7 +139,7 @@ public class ShareBookDAO {
 		String sql;
 		if(tenTheLoai==null || tenTheLoai.equals("null"))
 		{
-			sql = "select count(*) from theloai where tentheloai like '%%'";
+			sql = "select count(*) from theloai";
 		}
 		else
 		{
@@ -157,7 +154,7 @@ public class ShareBookDAO {
 		String sql;
 		if(tenTheLoai==null || tenTheLoai.equals("null"))
 		{
-			sql = "select * from theloai where tentheloai like '%%' limit "+viTri+","+pageSize;
+			sql = "select * from theloai limit "+viTri+","+pageSize;
 		}
 		else
 		{
@@ -174,11 +171,18 @@ public class ShareBookDAO {
 		String sql;
 		if(idTheLoai==null && tenSach == null || idTheLoai.equals("null") && tenSach.equals("null"))
 		{
-			sql = "select count(*) from dssach where idtheloai like '%%' and tensach like '%%'";
+			sql = "select count(*) from dssach";
 		}
 		else
 		{
-			sql = "select count(*) from dssach where idtheloai like '%"+idTheLoai+"%' and tensach like '%"+tenSach+"%'";
+			if(idTheLoai.equals("0"))
+			{
+				sql = "select count(*) from dssach where tensach like '%"+tenSach+"%'";
+			}
+			else
+			{
+				sql = "select count(*) from dssach where idtheloai like '%"+idTheLoai+"%' and tensach like '%"+tenSach+"%'";
+			}
 		}
 		int soLuong= jdbcTemplate.queryForObject(sql, Integer.class);
 		return soLuong;
@@ -188,11 +192,18 @@ public class ShareBookDAO {
 		String sql;
 		if(idTheLoai==null && tenSach == null || idTheLoai.equals("null") && tenSach.equals("null"))
 		{
-			sql = "select * from dssach where idtheloai like '%%' and tensach like '%%' limit "+viTri+","+pageSize;
+			sql = "select * from dssach limit "+viTri+","+pageSize;
 		}
 		else
 		{
-			sql = "select * from dssach where idtheloai like '%"+idTheLoai+"%' and tensach like '%"+tenSach+"%' limit "+viTri+","+pageSize;
+			if(idTheLoai.equals("0"))
+			{
+				sql = "select * from dssach where tensach like '%"+tenSach+"%' limit "+viTri+","+pageSize;
+			}
+			else
+			{
+				sql = "select * from dssach where idtheloai like '%"+idTheLoai+"%' and tensach like '%"+tenSach+"%' limit "+viTri+","+pageSize;
+			}
 		}
 		List<Sach> sach = new ArrayList<Sach>();
 		sach = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Sach.class));

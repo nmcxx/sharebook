@@ -21,7 +21,7 @@ public class LoginController {
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String getLoginForm(HttpSession session)
 	{
-		System.out.println(session.getAttribute("userlogin"));
+		if(session.getAttribute("userlogin")!=null) return "redirect:/index";
 		return "login";
 	}
 	

@@ -61,34 +61,6 @@ public class UserController {
 	ShareBookDAO userRepository; 
 	
 	
-//	@RequestMapping(value="/login", method = RequestMethod.GET) // ánh xạ các yêu cầu của client vào method tương ứng
-//	public String getLoginForm()
-//	{
-////		System.out.println(userRepository.getAllTheLoai().get(0).getTenTheLoai()); 
-//		return "login2";
-//	}
-//	
-//	@RequestMapping(value="/login", method=RequestMethod.POST) 
-//	public String login(@ModelAttribute(name="loginForm")User user, Model model) 
-//	// cầu nối giữa controller với view , từ controller, truyền dữ liệu qua cho view thông qua modelattribute
-//	// từ view, sử dụng themeleaf để đọc dữ liệu từ model và hiển thị cho người dùng
-//	{
-//		String userName = user.getUsername();
-//		String passWord = user.getPassword();
-//		
-//		String check = userRepository.getUser(userName,passWord);
-//		
-//		System.out.println(check);
-//		if(check!="Khong tim thay")
-//		{
-//			login = true;
-//			return "home";
-//		}
-//		
-//		model.addAttribute("loiDangNhap", true);
-//		return "login2";
-//	}
-	
 	@GetMapping(value="/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("userlogin");
@@ -100,46 +72,14 @@ public class UserController {
 		List<TheLoai> theLoais = userRepository.getAllTheLoai();
 		model.addAttribute("listTheLoai", theLoais);
 		
-//		List<Sach> sachs = new ArrayList<Sach>();
-//		Sach s1 =  new Sach(0, 1, "a", "https://sachvui.com/cover2/2019/khi-nguoi-ta-tu-duy.jpg", "Sach 1" , "s");
-//		Sach s2 =  new Sach(0, 1, "a", "https://sachvui.com/cover2/2019/khi-nguoi-ta-tu-duy.jpg", "Sach 1" , "s");
-//		Sach s3 =  new Sach(0, 1, "a", "https://sachvui.com/cover2/2019/khi-nguoi-ta-tu-duy.jpg", "Sach 1" , "s");
-//		Sach s4 =  new Sach(0, 1, "a", "https://sachvui.com/cover2/2019/khi-nguoi-ta-tu-duy.jpg", "Sach 1" , "s");
-//		Sach s5 =  new Sach(0, 1, "a", "https://sachvui.com/cover2/2019/khi-nguoi-ta-tu-duy.jpg", "Sach 1" , "s");
-//		Sach s6 =  new Sach(0, 1, "a", "https://sachvui.com/cover2/2019/khi-nguoi-ta-tu-duy.jpg", "Sach 1" , "s");
-//		sachs.add(s1);
-//		sachs.add(s2);
-//		sachs.add(s3);
-//		sachs.add(s4);
-//		sachs.add(s5);
-//		sachs.add(s6);
-//		System.out.println(sachs.size());
-//		for(int i=1;i<=sachs.size();i++)
-//		{
-//			System.out.println(i);
-//		}
 		return "index";
 	}
 	
-//	@RequestMapping(value = "/test", method = RequestMethod.GET)
-//	public String a(Model model) {
-//		if(login==false)	return "index";
-//		File folder = new File("./pdf/");
-//		File[] listOfFiles = folder.listFiles();
-//		model.addAttribute("files", listOfFiles);
-//		List<Sach> sachs = userRepository.getAllSach();
-//		model.addAttribute("listSale", sachs);
-//		return "test";
-//	}
-	
-//	private static final String EXTERNAL_FILE_PATH = "./pdf/";
-	
 	@RequestMapping("/file/{fileName}")
-	@ResponseBody
 	public void show(@PathVariable("fileName") String fileName, HttpServletResponse response) {
-	      response.setContentType("application/pdf");
-	      response.setHeader("Content-Disposition", "attachment; filename=" +fileName);
-	      response.setHeader("Content-Transfer-Encoding", "binary");
+	      response.setContentType("application/pdf"); // thiet lap kieu du lieu ma web tra ve browser
+	      response.setHeader("Content-Disposition", "attachment; filename=" +fileName); // bao cho trinh duyet download va save file, filename la ten cua file dc save
+//	      response.setHeader("Content-Transfer-Encoding", "binary");
 	      try {
 	    	  BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
 	    	  FileInputStream fis = new FileInputStream("./pdf/"+fileName);
@@ -149,7 +89,7 @@ public class UserController {
 	    		  bos.write(buf,0,len);
 	    	  }
 	    	  bos.close();
-	    	  response.flushBuffer();
+	    	  response.flushBuffer(); // noi dung trong bo dem se duoc ghi may nguoi dung
 	      }
 	      catch(IOException e) {
 	    	  e.printStackTrace();
@@ -165,6 +105,11 @@ public class UserController {
 		Sach sach = new Sach();
 		TheLoai theLoai = new TheLoai();
 		sach = userRepository.getSach(id);
+		if(sach==null) {
+			return "redirect:/index";
+		}
+		else
+		{
 		theLoai = userRepository.getTheLoai(sach.getIdTheLoai());
 		
 		List<TheLoai> theLoais = userRepository.getAllTheLoai();
@@ -173,7 +118,10 @@ public class UserController {
 		model.addAttribute("sach",sach);
 		model.addAttribute("theloai",theLoai); 
 		
+		
+		
 		return "thongtin";
+		}
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -223,79 +171,5 @@ public class UserController {
 		tenSach = URLEncoder.encode(tenSach);
 		return "redirect:/search?page=1&theloai="+id+"&tensach="+tenSach;
 	}
-	
-//	@RequestMapping(value = "/testt", method = RequestMethod.GET)
-//	public String getTestt() {
-//		return "testt";
-//	}
-	
-//	@PostMapping(value="/testt/a")
-//	public String save(@ModelAttribute(name="saveSachForm") Sach sach, RedirectAttributes ra, 
-//			@RequestParam("fileImage") MultipartFile[] file) throws IOException
-//	{
-//		boolean flag=true;
-//		for(MultipartFile file2 : file) {
-//		String fileName = StringUtils.cleanPath(file2.getOriginalFilename());
-//		String fileExtension = Files.getFileExtension(fileName);
-//		System.out.println(Files.getFileExtension(fileName));
-//		if(fileExtension.equals("pdf") || fileExtension.equals("jpg") || fileExtension.equals("png"))
-//		{
-//			String uploadDir ="";
-//			if(fileExtension.equals("jpg")  || fileExtension.equals("png"))
-//			{
-//				sach.setImg(fileName);
-//				uploadDir ="./images/";
-//			}
-//			else 
-//			{
-//				sach.setFileEbook(fileName);
-//				uploadDir ="./pdf/";
-//			}
-//			Path uploadPath = Paths.get(uploadDir);
-//			
-//			if(!java.nio.file.Files.exists(uploadPath))
-//			{
-//				java.nio.file.Files.createDirectories(uploadPath);
-//			}
-//			
-//			try(InputStream inputStream = file2.getInputStream())
-//			{
-//				Path filePath = uploadPath.resolve(fileName);
-//				System.out.println(filePath.toFile().getAbsolutePath());
-//				java.nio.file.Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-//			}
-//			catch(IOException e)
-//			{
-//				throw new IOException("Khong the save file upload: "+fileName);
-//			}
-//		}
-//		else
-//		{
-//			System.out.println("File khong duoc ho tro: "+fileName);
-//			flag=false;
-//			break;
-//		}
-//		}
-////		System.out.println(sach2.getFileEbook());
-//		if(flag==true && sach.getImg()!=null && sach.getFileEbook()!=null)
-//		{
-//			userRepository.addSachh(sach);
-//			ra.addFlashAttribute("message","Thanh cong");
-//		}
-//		else
-//		{
-//			ra.addFlashAttribute("message","That bai");
-//		}
-//		return "redirect:/testt";
-//		
-//	}
-	
-	
-	//
-	
-//	public String index()
-//	{
-//		return "index";
-//	}
 	
 }

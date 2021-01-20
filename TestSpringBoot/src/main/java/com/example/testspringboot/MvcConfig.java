@@ -20,6 +20,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		Path pdfUploadDir = Paths.get("./pdf");
 		String pdfPath = pdfUploadDir.toFile().getAbsolutePath();
 		
+		// cau hinh du lieu tinh pdf va img, cho phep anh xa url voi vi tri thuc te cua nguon du lieu
 		registry.addResourceHandler("/images/**").addResourceLocations("file:/"+imagePath+"/");
 		registry.addResourceHandler("/pdf/").addResourceLocations("file:/"+pdfPath+"/");
 	}

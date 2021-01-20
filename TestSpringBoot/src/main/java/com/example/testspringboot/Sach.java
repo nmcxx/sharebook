@@ -106,7 +106,6 @@ public class Sach {
 	}
 	
 	
-	@Transient
 	public String getImagePath() {
 		if(img==null) return null;
 		return "/images/"+img;
