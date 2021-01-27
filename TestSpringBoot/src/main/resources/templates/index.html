@@ -18,7 +18,7 @@
   <li th:if="${session.userlogin == null}" style="float:right" class="dropdown"><a style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
   </li>
   
-  <li th:unless="${session.userlogin == null}" style="float:right" class="dropdown"><a th:text="${session.userlogin}" style="color: #3399ff" href="/login" class="dropbtn">Đăng Nhập</a>
+  <li th:unless="${session.userlogin == null}" style="float:right" class="dropdown"><a th:text="${session.userlogin}" style="color: #3399ff" class="dropbtn">Đăng Nhập</a>
     <div class="dropdown-content">
       <a href="/dashboard">Dashboard</a>
       <a href="/logout">Đăng xuất</a>
@@ -32,6 +32,7 @@
     <div id="search-container">
       <form th:action="@{/search}" th:object="${searchForm}" method="post">
         <select id="list-search" name="list-search">
+          <option value="0">Tất cả</option>
           <option th:each="theloai : ${listTheLoai}" th:value="${theloai.idTheLoai}" th:text="${theloai.tenTheLoai}"></option>
         </select>
       <input type="text" placeholder="Tên sách" name="search" id="search">
